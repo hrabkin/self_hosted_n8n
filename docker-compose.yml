@@ -43,7 +43,6 @@ services:
     image: caddy:latest
     restart: unless-stopped
     ports:
-      - "80:80"
       - "443:443"
     volumes:
       - caddy_data:/data
@@ -85,6 +84,12 @@ services:
       - 5678:5678
 
   n8n-worker:
+    <<: *shared
+    command: worker
+    depends_on:
+      - n8n
+  
+  n8n-worker2:
     <<: *shared
     command: worker
     depends_on:
